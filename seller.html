@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpenx 卖家中心 · 创作者后台</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+            color: #1a2634;
+        }
+
+        :root {
+            --primary: #1f2b3c;
+            --accent: #f4a261;
+            --accent-dark: #e76f51;
+            --success: #2e7d64;
+            --border: #e2e8f0;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* 侧边导航 */
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 32px 20px;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #1f2b3c, #3f5a7c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-item {
+            padding: 12px 16px;
+            margin: 8px 0;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .nav-item.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-item:hover:not(.active) {
+            background: #eef2ff;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            padding: 32px 40px;
+            overflow-x: auto;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 28px;
+        }
+
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 28px;
+            padding: 22px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border);
+        }
+
+        .stat-card h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #5f7f9e;
+            margin-bottom: 12px;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        /* 元件表格/表单 */
+        .card-panel {
+            background: white;
+            border-radius: 28px;
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 14px 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .badge {
+            background: #eef2ff;
+            padding: 4px 10px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn-outline-light {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--primary);
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+        }
+
+        .inline-icon {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 780px) {
+            .app-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 16px;
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- 侧边栏卖家导航 -->
+        <div class="sidebar">
+            <div class="logo">helpenx🎬 <span style="font-size: 0.7rem;">卖家中心</span></div>
+            <div class="nav-item active" data-tab="dashboard">📊 仪表板</div>
+            <div class="nav-item" data-tab="elements">📦 我的元件</div>
+            <div class="nav-item" data-tab="upload">➕ 上传新元件</div>
+            <div class="nav-item" data-tab="earnings">💰 收益与调用</div>
+            <div style="margin-top: 40px; font-size:0.8rem; color:#5f7f9e;">creators@helpenx.com</div>
+        </div>
+
+        <div class="main-content" id="mainContent">
+            <!-- 动态内容会通过js渲染 -->
+            <div id="dynamicView"></div>
+        </div>
+    </div>
+
+    <script>
+        // ---------- 模拟卖家数据 ----------
+        let myElements = [
+            { id: 101, name: "「失落」情绪镜头组", type: "emotion", price: 1.2, variables: "情绪基调, 场景环境", status: "上架", totalCalls: 3421, earnings: 2873.6 },
+            { id: 102, name: "S-Dual 对话框架", type: "dialogue", price: 2.8, variables: "角色A/B, 氛围强度", status: "上架", totalCalls: 1872, earnings: 4193.2 },
+            { id: 103, name: "霓虹低语风格包", type: "style", price: 3.5, variables: "主色调, 闪烁强度", status: "下架", totalCalls: 523, earnings: 1464.4 }
+        ];
+
+        // 模拟调用记录
+        let callRecords = [
+            { date: "2025-05-12", element: "「失落」情绪镜头组", buyer: "user_ai_studio", quantity: 1, amount: 1.2 },
+            { date: "2025-05-12", element: "S-Dual 对话框架", buyer: "short_film_lab", quantity: 2, amount: 5.6 },
+            { date: "2025-05-11", element: "霓虹低语风格包", buyer: "music_video_pro", quantity: 1, amount: 3.5 },
+            { date: "2025-05-10", element: "「失落」情绪镜头组", buyer: "drama_daily", quantity: 3, amount: 3.6 }
+        ];
+
+        function getTotalEarnings() {
+            return myElements.reduce((sum, e) => sum + e.earnings, 0);
+        }
+        function getTodayCalls() {
+            const today = new Date().toISOString().slice(0, 10);
+            return callRecords.filter(rec => rec.date === today).reduce((sum, rec) => sum + rec.quantity, 0);
+        }
+
+        // 渲染不同tab
+        function renderDashboard() {
+            const totalEarn = getTotalEarnings().toFixed(2);
+            const totalCallsAll = myElements.reduce((sum, e) => sum + e.totalCalls, 0);
+            const todayCalls = getTodayCalls();
+            const activeElements = myElements.filter(e => e.status === "上架").length;
+            return `
+            <div class="page-title">创作者仪表板</div>
+            <div class="stats-grid">
+                <div class="stat-card"><h3>累计分成 (USD)</h3><div class="stat-number">$${totalEarn}</div></div>
+                <div class="stat-card"><h3>今日调用次数</h3><div class="stat-number">${todayCalls}</div></div>
+                <div class="stat-card"><h3>全元件总调用</h3><div class="stat-number">${totalCallsAll}</div></div>
+                <div class="stat-card"><h3>上架元件数</h3><div class="stat-number">${activeElements}</div></div>
+            </div>
+            <div class="card-panel">
+                <div class="panel-header"><h3>📈 近期调用趋势</h3><span>过去4笔记录</span></div>
+                <table>
+                    <thead><tr><th>日期</th><th>元件</th><th>买家</th><th>数量</th><th>金额</th></tr></thead>
+                    <tbody>
+                        ${callRecords.slice(0, 4).map(rec => `<tr><td>${rec.date}</td><td>${rec.element}</td><td>${rec.buyer}</td><td>${rec.quantity}</td><td>$${rec.amount.toFixed(2)}</td></tr>`).join('')}
+                        ${callRecords.length === 0 ? '<tr><td colspan="5">暂无调用记录</td></tr>' : ''}
+                    </tbody>
+                </table>
+            </div>
+        `;
+        }
+
+        function renderMyElements() {
+            return `
+            <div class="page-title">我的元件库</div>
+            <div class="card-panel">
+                <table>
+                    <thead><tr><th>元件名称</th><th>类型</th><th>价格</th><th>变量槽</th><th>状态</th><th>总调用</th><th>收益</th><th>操作</th></tr></thead>
+                    <tbody>
+                        ${myElements.map(el => `
+                            <tr>
+                                <td>${el.name}</td>
+                                <td><span class="badge">${el.type}</span></td>
+                                <td>$${el.price.toFixed(2)}</td>
+                                <td style="max-width:150px; font-size:0.8rem;">${el.variables}</td>
+                                <td>${el.status === '上架' ? ' 上架' : '⛔ 下架'}</td>
+                                <td>${el.totalCalls}</td>
+                                <td>$${el.earnings.toFixed(2)}</td>
+                                <td><button class="toggle-status" data-id="${el.id}">${el.status === '上架' ? '下架' : '上架'}</button></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+        }
+
+        function renderUploadForm() {
+            return `
+            <div class="page-title">➕ 上传新分镜元件</div>
+            <div class="card-panel">
+                <form id="newElementForm">
+                    <div class="form-row">
+                        <div class="form-group"><label>元件名称 *</label><input type="text" id="elemName" placeholder="例如：悬疑对峙镜头组" required></div>
+                        <div class="form-group"><label>类型</label><select id="elemType"><option value="emotion">情绪镜头</option><option value="dialogue">镜头组</option><option value="style">风格预设</option><option value="transition">转场元件</option></select></div>
+                        <div class="form-group"><label>价格 (USD)</label><input type="number" id="elemPrice" step="0.1" value="1.99" required></div>
+                    </div>
+                    <div class="form-group"><label>变量槽 (例如: 主角情绪, 背景年代)</label><input type="text" id="elemVariables" placeholder="角色名, 环境色调, 紧张程度"></div>
+                    <div class="form-group"><label>元件简短描述</label><textarea rows="2" id="elemDesc"></textarea></div>
+                    <button type="submit" style="margin-top: 12px;">发布元件到市场</button>
+                </form>
+                <p style="margin-top: 20px; font-size:0.75rem; color:gray;">💡 元件将通过 AI 变量槽自动适配不同剧本，每次调用您将获得 70% 分成。</p>
+            </div>
+        `;
+        }
+
+        function renderEarningsCalls() {
+            const totalEarn = getTotalEarnings().toFixed(2);
+            return `
+            <div class="page-title">详细收益 & 调用记录</div>
+            <div class="stats-grid">
+                <div class="stat-card"><h3>总收益 (净分成)</h3><div class="stat-number">$${totalEarn}</div></div>
+                <div class="stat-card"><h3>待结算金额</h3><div class="stat-number">$0.00</div><small>每月15日结算</small></div>
+            </div>
+            <div class="card-panel">
+                <h3>📋 完整调用明细</h3>
+                <table>
+                    <thead><tr><th>时间</th><th>元件</th><th>买家ID</th><th>调用次数</th><th>分成金额</th></tr></thead>
+                    <tbody>
+                        ${callRecords.map(rec => `<tr><td>${rec.date}</td><td>${rec.element}</td><td>${rec.buyer}</td><td>${rec.quantity}</td><td>$${rec.amount.toFixed(2)}</td></tr>`).join('')}
+                        ${callRecords.length === 0 ? '<tr><td colspan="5">暂无调用记录，元件上架后将展示</td></tr>' : ''}
+                    </tbody>
+                </table>
+            </div>
+        `;
+        }
+
+        // 切换tab逻辑 + 事件绑定后续
+        let currentTab = "dashboard";
+        function loadTab(tabId) {
+            currentTab = tabId;
+            const views = {
+                dashboard: renderDashboard,
+                elements: renderMyElements,
+                upload: renderUploadForm,
+                earnings: renderEarningsCalls
+            };
+            const content = views[tabId] ? views[tabId]() : "<div>页面建设中</div>";
+            document.getElementById("dynamicView").innerHTML = content;
+
+            // 针对元件库 绑定 “上架/下架” 按钮事件
+            if (tabId === "elements") {
+                document.querySelectorAll(".toggle-status").forEach(btn => {
+                    btn.addEventListener("click", (e) => {
+                        const id = parseInt(btn.dataset.id);
+                        const element = myElements.find(el => el.id === id);
+                        if (element) {
+                            element.status = element.status === "上架" ? "下架" : "上架";
+                            loadTab("elements");  // 刷新列表
+                        }
+                    });
+                });
+            }
+            // 上传表单提交
+            if (tabId === "upload") {
+                const form = document.getElementById("newElementForm");
+                if (form) {
+                    form.addEventListener("submit", (e) => {
+                        e.preventDefault();
+                        const name = document.getElementById("elemName").value;
+                        const type = document.getElementById("elemType").value;
+                        const price = parseFloat(document.getElementById("elemPrice").value);
+                        const variables = document.getElementById("elemVariables").value;
+                        const desc = document.getElementById("elemDesc").value;
+                        if (!name || isNaN(price)) return alert("请填写完整信息");
+                        const newId = Date.now();
+                        const newElement = {
+                            id: newId,
+                            name: name,
+                            type: type,
+                            price: price,
+                            variables: variables || "待标注",
+                            status: "上架",
+                            totalCalls: 0,
+                            earnings: 0,
+                            desc: desc
+                        };
+                        myElements.push(newElement);
+                        alert(` 元件“${name}”已成功上架，等待AI市场调用！`);
+                        loadTab("elements");
+                    });
+                }
+            }
+        }
+
+        // 侧边栏点击切换
+        document.querySelectorAll(".nav-item").forEach(item => {
+            item.addEventListener("click", () => {
+                document.querySelectorAll(".nav-item").forEach(nav => nav.classList.remove("active"));
+                item.classList.add("active");
+                const tab = item.dataset.tab;
+                loadTab(tab);
+            });
+        });
+        // 初始加载dashboard
+        loadTab("dashboard");
+    </script>
+</body>
+
+</html>

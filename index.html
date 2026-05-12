@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Helpenx Studio · 分镜元件市场 | AI视频全链路平台</title>
+    <!-- Google Fonts & 简洁重置 -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fbfdfe;
+            color: #11181c;
+            line-height: 1.4;
+            scroll-behavior: smooth;
+        }
+
+        /* 品牌色系: 深邃科技 + 亲和暖色点缀 */
+        :root {
+            --primary: #1f2b3c;
+            /* 深岩蓝 - 稳重技术感 */
+            --primary-light: #2d3a4f;
+            --accent: #f4a261;
+            /* 暖橙 - 帮助/创造力 */
+            --accent-dark: #e76f51;
+            --gray-bg: #f8fafc;
+            --card-border: #e9edf2;
+            --text-muted: #546e7a;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* header 导航 */
+        .navbar {
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 1px solid #eef2f6;
+        }
+
+        .logo h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #1f2b3c 0%, #3a4c66 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--accent-dark);
+            margin-left: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .btn-outline {
+            border: 1.5px solid var(--primary);
+            background: transparent;
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: #1f2b3c;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-accent:hover {
+            background: var(--accent-dark);
+            color: white;
+        }
+
+        /* hero 区域 */
+        .hero {
+            padding: 70px 0 50px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            line-height: 1.2;
+            max-width: 900px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #1f2b3c, #3f5a7c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-badge {
+            background: #eef2ff;
+            color: #2c3e66;
+            display: inline-block;
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        /* 两大关键说明卡片 */
+        .concept {
+            display: flex;
+            gap: 32px;
+            margin: 64px 0;
+            flex-wrap: wrap;
+        }
+
+        .concept-card {
+            flex: 1;
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--card-border);
+        }
+
+        .concept-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .concept-icon {
+            font-size: 2.3rem;
+            margin-bottom: 16px;
+        }
+
+        /* 分镜元件市场 */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 56px 0 16px;
+            text-align: center;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+            font-size: 1.1rem;
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 32px;
+            margin: 40px 0;
+        }
+
+        .element-card {
+            background: white;
+            border-radius: 28px;
+            border: 1px solid var(--card-border);
+            transition: all 0.25s ease;
+            overflow: hidden;
+        }
+
+        .element-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img {
+            background: #f1f5f9;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #2c3e66;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        .card-content h4 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .tag {
+            background: #eef2ff;
+            color: #1f2b3c;
+            font-size: 0.7rem;
+            border-radius: 40px;
+            padding: 4px 12px;
+            display: inline-block;
+            margin: 12px 0 12px 0;
+            font-weight: 600;
+        }
+
+        .price {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin: 12px 0;
+        }
+
+        .usage {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 创作者经济 */
+        .creator-section {
+            background: var(--gray-bg);
+            border-radius: 48px;
+            padding: 56px 48px;
+            margin: 70px 0;
+            text-align: center;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin: 32px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        /* 邮件表单 */
+        .waitlist {
+            background: var(--primary);
+            color: white;
+            border-radius: 48px;
+            padding: 56px 40px;
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .waitlist input {
+            padding: 14px 20px;
+            border-radius: 60px;
+            border: none;
+            width: 280px;
+            max-width: 70%;
+            margin-right: 12px;
+            font-size: 1rem;
+        }
+
+        .waitlist button {
+            background: var(--accent);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 60px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        footer {
+            border-top: 1px solid #e2e8f0;
+            padding: 32px 0;
+            text-align: center;
+            color: #5b6e8c;
+        }
+
+        @media (max-width: 780px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .navbar {
+                flex-direction: column;
+            }
+
+            .concept {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- 导航栏 -->
+        <div class="navbar">
+            <div class="logo">
+                <h1>helpenx<span>studio</span></h1>
+            </div>
+            <div class="nav-links">
+                <a href="./market.html">元件市场</a>
+                <a href="#">AI工具链</a>
+                <a href="./seller.html">创作者</a>
+                <a href="#" class="btn-outline">登录</a>
+                <a href="#" class="btn-primary">开始创作</a>
+            </div>
+        </div>
+
+        <!-- Hero 主视觉 体现品牌理念“给每个故事骨架” -->
+        <div class="hero">
+            <div class="hero-badge">✨ AI 原生分镜元件市场 · 重新定义创作复用</div>
+            <h2>给每个故事，<br>一副属于它的骨架</h2>
+            <p>Helpenx Studio — 从剧本解析到 AI 组件装配，让独一无二的短剧拥有专业级视觉基因。<br>分镜不再「定制即浪费」，原子化元件，千万次调用。</p>
+            <a href="#" class="btn-accent">🎬 探索分镜元件市场 →</a>
+        </div>
+
+        <!-- 核心理念解答：解决“剧本不同分镜无用”的疑虑 -->
+        <div class="concept">
+            <div class="concept-card">
+                <div class="concept-icon">🧩</div>
+                <h3>不是“成品分镜”，而是乐高式元件</h3>
+                <p>每个剧本都独一无二？没错。但我们不卖绑定情节的完整分镜。我们提供「情绪镜头组」、「对话结构包」、「风格预设」与「转场衔接块」—— AI 会根据你的剧本提取标签，动态组装成专属分镜序列，元件复用率提升
+                    20 倍。</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-icon">⚙️</div>
+                <h3>AI 自适应装配 + 二级市场</h3>
+                <p>你输入剧本 → Helpenx 解析情绪/角色/场景 → 从市场检索匹配元件 → 变量槽自动填充 →
+                    输出专属于你的分镜脚本。对买家：定制化体验。对卖家：上传一个“双人对话模板”可被上万剧本调用，真正被动收入。</p>
+            </div>
+        </div>
+
+        <!-- 分镜元件市场精选 -->
+        <div class="section-title">🎨 热门分镜元件</div>
+        <div class="section-sub">高复用 · 自由组合 · 按照调用量付费给创作者</div>
+
+        <div class="market-grid">
+            <!-- 情绪镜头 失落 -->
+            <div class="element-card">
+                <div class="card-img">🎭🌧️</div>
+                <div class="card-content">
+                    <h4>「失落」情绪镜头组</h4>
+                    <div class="tag">情绪元件 · 3个镜头</div>
+                    <p>背影虚化 + 雨窗特写 + 缓慢转身，适用于任何角色的低谷时刻。</p>
+                    <div class="price">$1.2 / 调用</div>
+                    <div class="usage">📈 本月已调用 3,421 次</div>
+                </div>
+            </div>
+            <!-- 双人对话骨架 -->
+            <div class="element-card">
+                <div class="card-img">🗣️📄</div>
+                <div class="card-content">
+                    <h4>S-Dual 对话框架</h4>
+                    <div class="tag">镜头组 · 变量槽 x4</div>
+                    <p>中景-反打-过肩，自动适配角色名称与情绪基调，支持紧张/亲密/疏离模式。</p>
+                    <div class="price">$2.8 / 调用</div>
+                    <div class="usage">创作者：@frame_master ⭐ 4.9</div>
+                </div>
+            </div>
+            <!-- 王家卫风格预设 -->
+            <div class="element-card">
+                <div class="card-img">🎞️🍂</div>
+                <div class="card-content">
+                    <h4>「霓虹低语」风格包</h4>
+                    <div class="tag">风格预设 · 色调/光晕/慢门</div>
+                    <p>抽帧、红绿霓虹色调、雨夜质感，一键赋予任何剧本迷离气质。</p>
+                    <div class="price">$3.5 / 项目</div>
+                    <div class="usage">✨ 最受独立电影人欢迎</div>
+                </div>
+            </div>
+            <!-- 时空穿越转场 -->
+            <div class="element-card">
+                <div class="card-img">🌀⏳</div>
+                <div class="card-content">
+                    <h4>「裂隙」穿越转场</h4>
+                    <div class="tag">转场元件 · 2.5秒</div>
+                    <p>粒子消散 → 波纹畸变 → 新场景建立，适配奇幻/科幻/回忆闪回。</p>
+                    <div class="price">$0.9 / 调用</div>
+                    <div class="usage">🚀 热门飙升 +162%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 更多分类展示：镜头库 + 组合拳 -->
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin: 30px 0 20px;">
+            <div style="background: #f8fafc; border-radius: 28px; padding: 20px 28px; flex:1;">
+                <span style="font-weight: 800;">📦 镜头组系列</span>
+                <p style="margin-top: 10px;">对峙 · 邂逅 · 悬念揭晓 · 动作追击 —— 每套包含2~5个叙事单元</p>
+            </div>
+            <div style="background: #f8fafc; border-radius: 28px; padding: 20px 28px; flex:1;">
+                <span style="font-weight: 800;">🎨 风格预设实验室</span>
+                <p style="margin-top: 10px;">赛博朋克 · 日系清新 · 复古胶片 · 纪实质感，AI 一键迁移</p>
+            </div>
+            <div style="background: #f8fafc; border-radius: 28px; padding: 20px 28px; flex:1;">
+                <span style="font-weight: 800;">🎭 情绪反应镜头</span>
+                <p style="margin-top: 10px;">狂喜/绝望/疑惑/释然 —— 单镜头元件，只需0.5美元起</p>
+            </div>
+        </div>
+
+        <!-- 创作者经济 & 被动收入 -->
+        <div class="creator-section">
+            <h3 style="font-size: 1.9rem;">🎯 创作者经济 · 让分镜元件「睡后收入」</h3>
+            <p style="max-width: 600px; margin: 20px auto;">上传一个「双人对话框架」，被 AI 匹配到不同剧本、网剧、短视频广告，每一次调用你都将获得 70%
+                分成。不做定制，只做可复用的叙事积木。</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <h3>2.3w+</h3>
+                    <p>活跃元件调用/日</p>
+                </div>
+                <div class="stat-item">
+                    <h3>1,280+</h3>
+                    <p>签约分镜师/创作者</p>
+                </div>
+                <div class="stat-item">
+                    <h3>94%</h3>
+                    <p>买家满意度</p>
+                </div>
+            </div>
+            <button class="btn-primary" style="background: #2d3a4f;" onclick="alert('👉 即将开放入驻平台，欢迎提前加入等待名单')">🎨 成为
+                Helpenx 卖家 →</button>
+        </div>
+
+        <!-- 技术流程亮点说明：AI如何装配？-->
+        <div
+            style="background: white; border-radius: 36px; border: 1px solid var(--card-border); padding: 48px 32px; margin: 40px 0;">
+            <div style="display: flex; gap: 30px; flex-wrap: wrap; align-items: center;">
+                <div style="flex: 1.2;">
+                    <span style="background: #1f2b3c10; padding: 6px 14px; border-radius: 40px; font-weight: 600;">🔧
+                        Helpenx 引擎工作流</span>
+                    <h3 style="font-size: 1.7rem; margin: 20px 0 16px;">剧本解析 → 标签提取 → 智能装配</h3>
+                    <p style="line-height: 1.5;">我们利用大模型读取你的剧本，提炼出「情绪标签、角色数、时长、场景类型」，然后在元件市场中检索最佳匹配的「情绪镜头、对话组、转场、风格包」，AI
+                        自动填充变量，最终生成完全符合你独特故事的分镜脚本。 <br><strong>你看到的是独家定制，背后是蓬勃的元件生态。</strong></p>
+                </div>
+                <div
+                    style="flex: 0.8; background: #eef2ff; border-radius: 32px; padding: 24px; font-family: monospace; font-size: 0.85rem;">
+                    📄 剧本片段 <br>
+                    “深夜，林夏站在窗前，眼中带着疲惫，手机屏幕亮起却不想接……”<br><br>
+                    🧠 提取: [情绪: 孤独/疲惫] [场景: 室内夜] [动作: 拒绝沟通]<br>
+                    🔗 匹配元件: 「失落情绪镜头组」+「暗调风格预设」+「无声震动静帧转场」<br>
+                    🎬 专属分镜生成完毕。
+                </div>
+            </div>
+        </div>
+
+        <!-- 分镜市场交易 + 二级市场机制说明 -->
+        <div style="text-align: center; margin: 20px 0 0px;">
+            <h3 class="section-title" style="margin-bottom: 8px;">🎬 全链路创作工具即将开放</h3>
+            <p class="section-sub">从分镜元件 → AI 视频渲染 → 一键发布主流平台，Helpenx 重塑短剧/广告/自媒体工作流</p>
+        </div>
+
+        <!-- 三大独特优势 -->
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 56px 0 20px;">
+            <div style="flex:1; background:white; border-radius: 28px; padding: 28px; border:1px solid #edf2f7;">
+                <div>⚡️</div>
+                <h4 style="margin: 16px 0 12px;">一键应用</h4>
+                <p>购买的元件无需手动调整，AI 直接应用到你的视频项目，适配多种比例(9:16/16:9) 与风格融合。</p>
+            </div>
+            <div style="flex:1; background:white; border-radius: 28px; padding: 28px; border:1px solid #edf2f7;">
+                <div>🛡️</div>
+                <h4 style="margin: 16px 0 12px;">变量槽技术</h4>
+                <p>每个元件均标注可替换参数，保证通用性的同时契合不同故事线，避免“文不对图”。</p>
+            </div>
+            <div style="flex:1; background:white; border-radius: 28px; padding: 28px; border:1px solid #edf2f7;">
+                <div>💰</div>
+                <h4 style="margin: 16px 0 12px;">版权分成 + 安全调用</h4>
+                <p>基于区块链存证调用记录，卖家透明分成，买家获得商用授权，权益清晰。</p>
+            </div>
+        </div>
+
+        <!-- 等待名单 + 品牌号召 -->
+        <div class="waitlist">
+            <h3 style="font-size: 1.9rem; margin-bottom: 12px;">抢先体验 Helpenx Studio</h3>
+            <p style="margin-bottom: 28px; opacity: 0.8;">成为第一批使用「元件化分镜市场」的创作者，获取早期创作者福利。</p>
+            <div>
+                <input type="email" placeholder="你的邮箱" id="waitlistEmail">
+                <button onclick="submitWaitlist()">加入候补名单 →</button>
+            </div>
+            <p style="font-size: 0.75rem; margin-top: 24px;">我们将向 @helpenx.com 发送上线通知及专属元件的优惠券</p>
+        </div>
+
+        <footer>
+            <p>© 2026 Helpenx Studio · 创造 · 连接 · 帮助 | 分镜元件市场 | 让每个故事获得骨架</p>
+            <p style="margin-top: 12px;">📧 合作联系：contact@helpenx.com | 品牌域名已锁定全球生态</p>
+        </footer>
+    </div>
+
+    <script>
+        function submitWaitlist() {
+            const email = document.getElementById('waitlistEmail').value;
+            if (!email || !email.includes('@')) {
+                alert('请输入有效的邮箱地址，我们将会发送早期访问邀请。');
+                return;
+            }
+            // 模拟提交到 waitlist 后端 (示意)
+            alert(`🎉 感谢加入，${email}！ Helpenx 团队会第一时间通知您分镜市场上线。`);
+            // 实际可以集成 formspree / supabase，此处仅演示品牌交互
+            document.getElementById('waitlistEmail').value = '';
+        }
+
+        // 简单控制台品牌展示
+        console.log("Helpenx Studio — 分镜元件品牌官网 | 元件复用变革AI视频");
+    </script>
+</body>
+
+</html>
